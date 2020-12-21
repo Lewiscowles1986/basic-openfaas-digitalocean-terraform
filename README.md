@@ -30,3 +30,12 @@ It was part of setting up a minimum viable FaaS-D on DigitalOcean and likely sho
 * Setup digitalocean loadbalancer, tell it to get the certs
 * Setup do kubernetes as part of this and configure faasd to use that cluster
 * It would be trivially simple to move the certbot to your local machine and distribute with terraform / cloud-init.
+* Reduce boot times or work out "ready-state" so this can be blue-green deployed without downtime
+
+## Thanks
+
+To Alex Ellis & OpenFaaS team. Most of this is from their own examples, but those miss letsencrypt & SSL control details, 
+and make the user do more steps, and make choices I did not like.
+
+Consider sponsoring OpenFaaS and it's creators, and upstream to them if you care about OpenSource or even just longevity.
+I've been working with OpenFaaS since 2017. Most of what I do with their framework is made possible by them.
