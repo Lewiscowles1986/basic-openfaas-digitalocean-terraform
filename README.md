@@ -20,7 +20,8 @@ OpenFaaS DigitalOcean Terraform
 
 ## Management
 
-This example does not contain a certbot rotation for certificates. So after 3 months they will expire and will need to be renewed.
+This example contains a basic certbot rotation for certificates.
+They *SHOULD NOT* expire and *SHOULD NOT* need to be renewed. No warranty or representation of merchantability is provided.
 
 It was part of setting up a minimum viable FaaS-D on DigitalOcean and likely should not be used in production
 
