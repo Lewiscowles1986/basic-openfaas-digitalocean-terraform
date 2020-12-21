@@ -19,7 +19,7 @@ resource "digitalocean_droplet" "faasd" {
 resource "digitalocean_record" "faasd" {
   domain = var.do_domain
   type   = "A"
-  name   = "faasd"
+  name   = var.do_subdomain
   value  = digitalocean_droplet.faasd.ipv4_address
   # Only creates record if do_create_record is true
   count  = var.do_create_record == true ? 1 : 0
@@ -29,7 +29,7 @@ resource "digitalocean_record" "faasd" {
 resource "digitalocean_record" "faasd_v6" {
   domain = var.do_domain
   type   = "AAAA"
-  name   = "faasd"
+  name   = var.do_subdomain
   value  = digitalocean_droplet.faasd.ipv6_address
   # Only creates record if do_create_record is true
   count  = var.do_create_record && var.ipv6 == true ? 1 : 0
