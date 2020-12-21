@@ -10,10 +10,10 @@ terraform {
 
 module "digitalocean_basic_openfaas" {
   source            = "../../modules/do-openfaas/"
-  do_token          = vars.do_token
-  do_domain         = vars.do_domain
-  do_subdomain      = vars.do_subdomain
-  letsencrypt_email = vars.letsencrypt_email
-  do_create_record = true
-  do_region         = vars.do_region
+  do_token          = var.do_token
+  do_create_record  = true
+  do_domain         = var.do_domain
+  do_subdomain      = var.do_subdomain
+  do_region         = var.do_region
+  letsencrypt_email = var.letsencrypt_email
 }
