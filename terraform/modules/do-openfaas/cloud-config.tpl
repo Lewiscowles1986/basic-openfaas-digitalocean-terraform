@@ -45,11 +45,20 @@ write_files:
 
   path: /etc/digitalocean-key
   permissions: "0600"
+- content: |
+    certbot certonly --dns-digitalocean --dns-digitalocean-credentials /etc/digitalocean-key --dns-digitalocean-propagation-seconds 60 -d ${faasd_domain_name} -m ${letsencrypt_email} --agree-tos --no-eff-email --renew-by-default
+
+  path: /etc/cron.monthly/certbot-renew
+  permissions: "0600"
 
 package_update: true
 
 packages:
  - runc
+ - anacron
+ - nginx-full
+ - certbot
+ - python3-certbot-dns-digitalocean
 
 runcmd:
 - curl -sLSf https://github.com/containerd/containerd/releases/download/v1.3.5/containerd-1.3.5-linux-amd64.tar.gz > /tmp/containerd.tar.gz && tar -xvf /tmp/containerd.tar.gz -C /usr/local/bin/ --strip-components=1
@@ -72,7 +81,6 @@ runcmd:
 - curl -sSLf https://cli.openfaas.com | sh
 - sleep 5 && journalctl -u faasd --no-pager
 - systemctl daemon-reload
-- apt-get install -yqq nginx-full certbot python3-certbot-dns-digitalocean
-- certbot certonly  --dns-digitalocean --dns-digitalocean-credentials /etc/digitalocean-key --dns-digitalocean-propagation-seconds 60 -d ${faasd_domain_name} -m ${letsencrypt_email} --agree-tos --no-eff-email --renew-by-default
+- certbot certonly --dns-digitalocean --dns-digitalocean-credentials /etc/digitalocean-key --dns-digitalocean-propagation-seconds 60 -d ${faasd_domain_name} -m ${letsencrypt_email} --agree-tos --no-eff-email --renew-by-default
 - ln -s /etc/nginx/sites-available/faasd /etc/nginx/sites-enabled/faasd
 - service nginx reload
